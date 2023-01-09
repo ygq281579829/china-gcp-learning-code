@@ -54,13 +54,13 @@ steps:
   args:
   - '-c'
   - |
-    _ACCESS_TOKEN=`cat /root/.ssh/id_rsa`
+    token=`cat /root/.ssh/id_rsa`
     repo=`echo -n git@github.com:gerraywang/china-gcp-learning-config.git | sed "s/.git//"`
     json=$(cat << EOS
     {"title": "good title", "head": "$COMMIT_SHA", "base": "main", "body": "great PR messages"}
     EOS
     )
-    echo "Authorization: token ${_ACCESS_TOKEN}"
+    echo "Authorization: token ${token}"
     echo "https://api.github.com/repos/${repo}/pulls"
     echo "$json"
     curl -H 'Content-Type:application/json' \
