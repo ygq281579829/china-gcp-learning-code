@@ -56,7 +56,7 @@ steps:
   - '-c'
   - |
     token="$$ACCESS_TOKEN_KEY"
-    repo=`echo -n https://github.com/gerraywang/china-gcp-learning-config.git | sed "s/.git//"`
+    repo=`echo -n gerraywang/china-gcp-learning-config.git | sed "s/.git//"`
     json=$(cat << EOS
     {"title": "good title", "head": "$COMMIT_SHA", "base": "main", "body": "great PR messages"}
     EOS
