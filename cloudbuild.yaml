@@ -38,11 +38,11 @@ steps:
       set -x && \
       git config --global user.email "wang_yuquan@retail-ai.jp" && \
       git config --global user.name "wang_yuquan" && \
-      git checkout -b $COMMIT_SHA && \
+      git checkout -b "cloudbuild-release" && \
       sed "s/tag:\s[0-9A-Za-z]+/tag:\s$COMMIT_SHA/g" > values.yaml && \
       git add values.yaml && \
       git commit -m "$COMMIT_SHA" && \
-      git push origin $COMMIT_SHA
+      git push origin "cloudbuild-release"
   volumes:
   - name: 'ssh'
     path: /root/.ssh
