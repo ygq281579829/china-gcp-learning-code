@@ -36,6 +36,8 @@ steps:
     - '-c'
     - |
       set -x && \
+      git config --global user.email "wang_yuquan@retail-ai.jp" && \
+      git config --global user.name "wang_yuquan" && \
       git checkout -b $COMMIT_SHA && \
       sed "s/tag:\s[0-9A-Za-z]+/tag:\s$COMMIT_SHA/g" > values.yaml && \
       git add values.yaml && \
