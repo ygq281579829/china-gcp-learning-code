@@ -1,9 +1,9 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'asia.gcr.io/robotic-charmer-371101/china_gcp_learning:$COMMIT_SHA', '.']
+  args: ['build', '-t', 'asia.gcr.io/$_PROJECT_ID/china_gcp_learning:$COMMIT_SHA', '.']
 # push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'asia.gcr.io/robotic-charmer-371101/china_gcp_learning:$COMMIT_SHA']
+  args: ['push', 'asia.gcr.io/$_PROJECT_ID/china_gcp_learning:$COMMIT_SHA']
 
 - name: 'gcr.io/cloud-builders/git'
   secretEnv: ['SSH_KEY']
@@ -23,7 +23,7 @@ steps:
   args:
   - clone
   - --recurse-submodules
-  - git@github.com:gerraywang/china-gcp-learning-config.git
+  - git@github.com:$_GITHUB_URL
   volumes:
   - name: 'ssh'
     path: /root/.ssh
@@ -37,8 +37,8 @@ steps:
     - |
       dt=$(date +%Y%m%d%H%M%S)
       set -x && \
-      git config --global user.email "wang_yuquan@retail-ai.jp" && \
-      git config --global user.name "wang_yuquan" && \
+      git config --global user.email $_GITHUB_EMAIL && \
+      git config --global user.name $_GITUB_NAME && \
       git checkout -b "release${dt}" && \
       sed -i "s/tag\:\s[a-z0-9]*/tag: $COMMIT_SHA/" values.yaml && \
       git add values.yaml && \
@@ -58,7 +58,7 @@ steps:
   - |
     token="$$ACCESS_TOKEN_KEY"
     branchname=`cat /root/.ssh/branchname`
-    repo=`echo -n gerraywang/china-gcp-learning-config.git | sed "s/.git//"`
+    repo=`echo -n $_GITHUB_URL | sed "s/.git//"`
     json=$(cat << EOS
     {"title": "${branchname}", "head": "${branchname}", "base": "main", "body": "it is a new PR"}
     EOS
@@ -76,7 +76,7 @@ steps:
 
 availableSecrets:
   secretManager:
-  - versionName: projects/robotic-charmer-371101/secrets/id_github/versions/latest
+  - versionName: projects/$_PROJECT_ID/secrets/id_github/versions/latest
     env: 'SSH_KEY'
-  - versionName: projects/robotic-charmer-371101/secrets/china-gcp-learning-config/versions/latest
+  - versionName: projects/$_PROJECT_ID/secrets/china-gcp-learning-config/versions/latest
     env: 'ACCESS_TOKEN_KEY'
