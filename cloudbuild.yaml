@@ -60,7 +60,7 @@ steps:
     branchname=`cat /root/.ssh/branchname`
     repo=`echo -n gerraywang/china-gcp-learning-config.git | sed "s/.git//"`
     json=$(cat << EOS
-    {"title": "good title", "head": "${branchname}", "base": "main", "body": "great PR messages"}
+    {"title": "${branchname}", "head": "${branchname}", "base": "main", "body": "it is a new PR"}
     EOS
     )
     echo "Authorization: token ${token}"
