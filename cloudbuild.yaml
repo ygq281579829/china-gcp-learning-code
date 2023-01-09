@@ -59,9 +59,9 @@ steps:
     {"title": "good title", "head": "$COMMIT_SHA", "base": "main", "body": "great PR messages"}
     EOS
     )
-    cat "Authorization: token ${_ACCESS_TOKEN}"
-    cat "https://api.github.com/repos/${repo}/pulls"
-    cat "$json"
+    echo "Authorization: token ${_ACCESS_TOKEN}"
+    echo "https://api.github.com/repos/${repo}/pulls"
+    echo "$json"
     curl -H 'Content-Type:application/json' \
         -H "Authorization: token ${_ACCESS_TOKEN}" \
         "https://api.github.com/repos/${repo}/pulls" \
