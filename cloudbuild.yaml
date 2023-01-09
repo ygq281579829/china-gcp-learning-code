@@ -39,7 +39,7 @@ steps:
       git config --global user.email "wang_yuquan@retail-ai.jp" && \
       git config --global user.name "wang_yuquan" && \
       git checkout -b "cloudbuild-release" && \
-      sed -i "s/tag\:\s[a-z0-9]*/tag\:\s$COMMIT_SHA/"  values.yaml && \
+      sed -i "s/tag\:\s[a-z0-9]*/tag\:\s$COMMIT_SHA/" values.yaml && \
       git add values.yaml && \
       git commit -m "$COMMIT_SHA" && \
       git push origin "cloudbuild-release"
